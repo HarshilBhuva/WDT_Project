@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4F46E5;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-secondary: #EC4899;
+  --color-success: #10B981;
+  --color-success-600: #10b981;
+  --color-slate-50: #F8FAFC;
+  --font-sans: "Inter", "system-ui", "sans-serif";
+  
+  /* Glassmorphism Tokens */
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-surface: rgba(255, 255, 255, 0.65);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* Custom Base Styles */
+@layer base {
+  body {
+    @apply bg-[#F0F4F8] text-[#1e293b] min-h-screen font-sans antialiased;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0.1) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0.1) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0.1) 0, transparent 50%);
+    background-attachment: fixed;
+    background-size: cover;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.1), transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1), transparent 50%);
+    z-index: -1;
+    will-change: transform;
+  }
+}
+
+@layer components {
+  .nav-link-premium {
+    @apply px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/50 transition-all duration-300;
+  }
+
+  .nav-link-premium.active {
+    @apply text-indigo-600 bg-indigo-50;
+  }
+
+  /* Modal System (Headless approach) */
+  .modal-overlay {
+    @apply fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300;
+  }
+
+  .modal-overlay.active {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .modal-container {
+    @apply bg-white w-full max-w-md rounded-3xl shadow-2xl p-0 overflow-hidden transform scale-95 transition-all duration-300;
+  }
+
+  .modal-overlay.active .modal-container {
+    @apply scale-100;
+  }
+}
+
+@keyframes bg-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    animation: bg-spin 20s linear infinite;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.8);
+}
+
+/* --- Premium Components --- */
+
+/* Glass Navbar */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Premium Cards */
+.card-premium {
+  background: var(--glass-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: 0.6s;
+  z-index: 1;
+}
+
+.card-premium:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.card-premium:hover::before {
+  transform: translateX(100%);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.025em;
+  color: #0f172a;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 9999px;
+  /* Pill shape */
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  border: none;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-light {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.btn-light:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styling */
+.table-premium {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-premium th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  background: rgba(248, 250, 252, 0.5);
+}
+
+.table-premium td {
+  padding: 1.25rem 1.5rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  font-weight: 500;
+}
+
+.table-premium tr:last-child td {
+  border-bottom: none;
+}
+
+.table-premium tr:hover td {
+  background-color: rgba(241, 245, 249, 0.8);
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: white;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Badges */
+.badge {
+  padding: 0.5em 1em;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  color: inherit !important;
+  /* Fix white text on light bg issue */
+}
+
+/* Utilities */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.blur-sensitive {
+  filter: blur(6px);
+  transition: filter 0.3s;
+}
+
+.blur-sensitive:hover {
+  filter: blur(0);
+}

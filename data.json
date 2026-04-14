@@ -1,0 +1,177 @@
+{
+  "transactions": [
+    {
+      "id": "8b184d74-38f2-478c-b029-db3a5414304b",
+      "desc": "food",
+      "category": "Food",
+      "date": "2026-04-08",
+      "amount": -500
+    },
+    {
+      "id": "61bc90ce-cad8-4a06-8525-46c2fad384e2",
+      "desc": "burger",
+      "category": "Food",
+      "date": "2026-04-01",
+      "amount": -250
+    }
+  ],
+  "goals": [
+    {
+      "id": 7,
+      "name": "Guitar Purchase",
+      "target": 25000,
+      "current": 25000,
+      "date": "2025-09-10",
+      "category": "purchase",
+      "status": "completed",
+      "icon": "🎸"
+    },
+    {
+      "id": "50885b2b-ff15-4c0f-94ac-041645091845",
+      "name": "New Car",
+      "target": 200000,
+      "current": 85000,
+      "date": "2026-04-30",
+      "category": "other",
+      "status": "active",
+      "icon": "🎯"
+    }
+  ],
+  "investments": [
+    {
+      "id": 1,
+      "name": "HDFC Equity Fund",
+      "category": "Equity",
+      "invested": 150000,
+      "current": 189000
+    },
+    {
+      "id": 2,
+      "name": "ICICI Debt Fund",
+      "category": "Debt",
+      "invested": 100000,
+      "current": 108500
+    },
+    {
+      "id": 3,
+      "name": "SBI Gold ETF",
+      "category": "Gold",
+      "invested": 80000,
+      "current": 90240
+    },
+    {
+      "id": 1772036498533,
+      "name": "TOP",
+      "category": "Gold",
+      "invested": 5000,
+      "current": 15000
+    }
+  ],
+  "sips": [
+    {
+      "id": 1,
+      "name": "HDFC Equity Fund",
+      "due": "5th",
+      "amount": 5000
+    },
+    {
+      "id": 2,
+      "name": "ICICI Debt Fund",
+      "due": "10th",
+      "amount": 3000
+    },
+    {
+      "id": 3,
+      "name": "Nifty 50 Index",
+      "due": "15th",
+      "amount": 7000
+    }
+  ],
+  "investments_initialized": true,
+  "savings": [
+    {
+      "id": "01589922-2ac0-4a9a-a05a-752bbb166789",
+      "name": "Test Fund",
+      "type": "High-Yield",
+      "balance": 5000,
+      "rate": 4.5,
+      "color": "blue"
+    }
+  ],
+  "savings_initialized": true,
+  "goals_initialized": true,
+  "dashboard_settings": {
+    "baseBalance": 10000,
+    "standardIncome": 50000,
+    "emergencyFundTargetMonths": 6
+  },
+  "bills": [
+    {
+      "id": 4,
+      "name": "Internet",
+      "amount": 999,
+      "date": "2026-02-28",
+      "frequency": "monthly",
+      "status": "paid",
+      "category": "Utilities"
+    },
+    {
+      "id": 1771953736986,
+      "name": "nelld",
+      "amount": 4555,
+      "date": "2026-02-28",
+      "frequency": "monthly",
+      "status": "paid",
+      "paidDate": "2026-02-24"
+    },
+    {
+      "id": 1,
+      "name": "Rent",
+      "amount": 12000,
+      "date": "2026-03-01",
+      "frequency": "monthly",
+      "status": "paid",
+      "paidDate": "2026-02-24",
+      "category": "Rent"
+    },
+    {
+      "id": 3,
+      "name": "Electricity",
+      "amount": 2500,
+      "date": "2026-03-10",
+      "frequency": "monthly",
+      "status": "paid",
+      "paidDate": "2026-02-24",
+      "category": "Utilities"
+    },
+    {
+      "id": 2,
+      "name": "Netflix",
+      "amount": 499,
+      "date": "2026-03-15",
+      "frequency": "monthly",
+      "status": "paid",
+      "category": "Fun",
+      "paidDate": "2026-02-24"
+    },
+    {
+      "id": 5,
+      "name": "Insurance",
+      "amount": 15000,
+      "date": "2026-05-20",
+      "frequency": "yearly",
+      "status": "paid",
+      "category": "Other",
+      "paidDate": "2026-02-24"
+    },
+    {
+      "id": "14364cdb-33cb-452d-a68d-f20ac1a39158",
+      "name": "Rent",
+      "amount": 3000,
+      "date": "2026-04-15",
+      "frequency": "monthly",
+      "status": "pending"
+    }
+  ],
+  "bills_initialized": true
+}

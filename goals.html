@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Goals - Emerald Vault</title>
+    <meta name="description" content="Set and track your financial goals">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-xl border-b border-slate-200/60">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="flex items-center gap-4 hover:opacity-80 transition-opacity">
+                        <div
+                            class="bg-gradient-to-br from-indigo-600 to-violet-700 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-indigo-200 shadow-lg cursor-pointer hover:rotate-6 transition-transform">
+                            <span class="font-black text-sm">EV</span>
+                        </div>
+                        <span class="text-slate-900 font-extrabold tracking-tight text-xl">Emerald Vault</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2">
+                    <a href="index.html" class="nav-link-premium">Dashboard</a>
+                    <a href="goals.html" class="nav-link-premium active">Goals</a>
+                    <a href="savings.html" class="nav-link-premium">Savings</a>
+                    <a href="investments.html" class="nav-link-premium">Investments</a>
+                    <a href="bills.html" class="nav-link-premium">Bills</a>
+                    <a href="reports.html" class="nav-link-premium">Reports</a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5"
+                        onclick="toggleModal('goalModal')">
+                        <span>＋</span>
+                        <span class="hidden sm:inline">New Goal</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full px-4 md:px-8 py-8 max-w-[1600px] mx-auto">
+
+        <div class="mb-8">
+            <h1
+                class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-indigo-900 mb-2">
+                Financial Goals
+            </h1>
+            <p class="text-slate-600 text-lg">Plan your future and track your progress</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div
+                class="card-premium p-4 md:p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h6 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-3">Active Goals</h6>
+                    <h2 id="activeGoalsCount" class="text-4xl font-bold text-indigo-600 mb-2">0</h2>
+                    <p class="text-sm text-slate-500">In progress</p>
+                </div>
+            </div>
+
+            <div
+                class="card-premium p-4 md:p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h6 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-3">Total Target</h6>
+                    <h2 id="totalTargetAmount" class="text-4xl font-bold text-slate-800 mb-2">₹0</h2>
+                    <p class="text-sm text-slate-500">Combined goals</p>
+                </div>
+            </div>
+
+            <div
+                class="card-premium p-4 md:p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h6 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-3">Completed</h6>
+                    <h2 id="completedGoalsCount" class="text-4xl font-bold text-emerald-600 mb-2">0</h2>
+                    <p class="text-sm text-slate-500">This year</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="activeGoalsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Dynamic Active Goals -->
+        </div>
+
+        <div
+            class="card-premium p-4 md:p-8 mb-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+            <div
+                class="absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-30">
+            </div>
+            <div class="relative z-10">
+                <h3 class="text-2xl font-bold text-slate-800 mb-6">Completed Goals 🎉</h3>
+                <div id="completedGoalsContainer" class="space-y-3">
+                    <!-- Dynamic Completed Goals -->
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="card-premium p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-40 h-40 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Goal Tips</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3 p-4 bg-blue-50 rounded-xl">
+                            <span class="text-2xl">🎯</span>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-1">Be Specific</h4>
+                                <p class="text-sm text-slate-600">Set clear, measurable targets with deadlines</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 p-4 bg-emerald-50 rounded-xl">
+                            <span class="text-2xl">💰</span>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-1">Automate Savings</h4>
+                                <p class="text-sm text-slate-600">Set up automatic transfers to goal accounts</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 p-4 bg-purple-50 rounded-xl">
+                            <span class="text-2xl">📊</span>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-1">Track Progress</h4>
+                                <p class="text-sm text-slate-600">Review your goals weekly to stay motivated</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-premium p-8 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-40 h-40 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Monthly Contribution</h3>
+                    <div id="monthlyContributionsContainer" class="space-y-4">
+                        <!-- Dynamic Contributions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Goal Modal (Tailwind Native) -->
+    <div id="goalModal" class="modal-overlay" onclick="if(event.target==this) toggleModal('goalModal')">
+        <div class="modal-container">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 class="text-xl font-bold text-slate-800">Create New Goal</h3>
+                <button class="text-slate-400 hover:text-slate-600 transition-colors"
+                    onclick="toggleModal('goalModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="goalForm" class="p-6 space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Goal Name</label>
+                    <input type="text" id="goalName" required
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none"
+                        placeholder="e.g. New Car">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Target Amount</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                            <input type="number" id="goalAmount" required min="0" step="1000"
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none"
+                                placeholder="50000">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Current Amount</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                            <input type="number" id="goalCurrent" min="0" step="1000"
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none"
+                                placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Target Date</label>
+                        <input type="date" id="goalDate" required
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Category</label>
+                        <select id="goalCategory" required
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none appearance-none">
+                            <option value="savings">Emergency Savings</option>
+                            <option value="purchase">Major Purchase</option>
+                            <option value="travel">Travel</option>
+                            <option value="education">Education</option>
+                            <option value="investment">Investment</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]">
+                        Create Goal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Progress Modal -->
+    <div id="updateProgressModal" class="modal-overlay" onclick="if(event.target==this) toggleModal('updateProgressModal')">
+        <div class="modal-container">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 class="text-xl font-bold text-slate-800" id="updateGoalTitle">Update Progress</h3>
+                <button class="text-slate-400 hover:text-slate-600 transition-colors"
+                    onclick="toggleModal('updateProgressModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="updateProgressForm" class="p-6 space-y-5">
+                <input type="hidden" id="updateGoalId">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Update Type</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="updateType" value="add" checked class="peer sr-only">
+                            <div class="p-4 bg-slate-50 border-2 border-transparent rounded-2xl peer-checked:border-indigo-600 peer-checked:bg-indigo-50/50 transition-all text-center group-hover:bg-slate-100">
+                                <span class="font-bold text-slate-700 peer-checked:text-indigo-600 mb-1 block text-sm">Add Amount</span>
+                                <span class="text-[10px] text-slate-500 block">Add to current</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="updateType" value="set" class="peer sr-only">
+                            <div class="p-4 bg-slate-50 border-2 border-transparent rounded-2xl peer-checked:border-indigo-600 peer-checked:bg-indigo-50/50 transition-all text-center group-hover:bg-slate-100">
+                                <span class="font-bold text-slate-700 peer-checked:text-indigo-600 mb-1 block text-sm">Set Total</span>
+                                <span class="text-[10px] text-slate-500 block">Overwrite total</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Amount</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                        <input type="number" id="updateGoalAmount" required min="1" step="any"
+                            class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none"
+                            placeholder="0">
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]">
+                        Update Progress
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script type="module" src="/src/goals.js"></script>
+</body>
+
+</html>

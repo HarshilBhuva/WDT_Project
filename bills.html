@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bills & Payments - Emerald Vault</title>
+    <meta name="description" content="Manage your bills and recurring payments">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-xl border-b border-slate-200/60">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="flex items-center gap-4 hover:opacity-80 transition-opacity">
+                        <div
+                            class="bg-gradient-to-br from-indigo-600 to-violet-700 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-indigo-200 shadow-lg cursor-pointer hover:rotate-6 transition-transform">
+                            <span class="font-black text-sm">EV</span>
+                        </div>
+                        <span class="text-slate-900 font-extrabold tracking-tight text-xl">Emerald Vault</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2">
+                    <a href="index.html" class="nav-link-premium">Dashboard</a>
+                    <a href="goals.html" class="nav-link-premium">Goals</a>
+                    <a href="savings.html" class="nav-link-premium">Savings</a>
+                    <a href="investments.html" class="nav-link-premium">Investments</a>
+                    <a href="bills.html" class="nav-link-premium active">Bills</a>
+                    <a href="reports.html" class="nav-link-premium">Reports</a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button
+                        class="bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-rose-200 transition-all hover:-translate-y-0.5"
+                        onclick="toggleModal('billModal')">
+                        <span>＋</span>
+                        <span class="hidden sm:inline">Add Bill</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full px-4 md:px-8 py-8 max-w-[1600px] mx-auto">
+
+        <div class="mb-8">
+            <h1
+                class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-indigo-900 mb-2">
+                Bills & Recurring
+            </h1>
+            <p class="text-slate-600 text-lg">Never miss a payment again</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card-premium p-6 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-rose-100 to-pink-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h6 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-3">Upcoming (7 days)</h6>
+                    <h2 id="upcomingBillsCount" class="text-4xl font-bold text-rose-600 mb-2">0</h2>
+                    <p id="upcomingBillsTotal" class="text-sm text-slate-500">Total: ₹0</p>
+                </div>
+            </div>
+
+            <div class="card-premium p-6 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h6 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-3">Monthly Fixed</h6>
+                    <h2 id="monthlyFixedTotal" class="text-4xl font-bold text-indigo-600 mb-2">₹0</h2>
+                    <p class="text-sm text-slate-500">Recurring expenses</p>
+                </div>
+            </div>
+
+            <div class="card-premium p-6 relative overflow-hidden group hover:shadow-2xl transition-all duration-300">
+                <div
+                    class="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full z-0 group-hover:scale-150 transition-transform duration-700 opacity-50">
+                </div>
+                <div class="relative z-10">
+                    <h6 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-3">Paid this Month</h6>
+                    <h2 id="paidMonthTotal" class="text-4xl font-bold text-emerald-600 mb-2">₹0</h2>
+                    <p class="text-sm text-slate-500">Completed payments</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="card-premium p-4 md:p-8">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6">Subscription & Bills</h3>
+                    <div id="billsList" class="space-y-4">
+                        <!-- Dynamic Bill Items -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="card-premium p-6">
+                    <h4 class="font-bold text-slate-800 mb-4">Payment Calendar</h4>
+                    <div id="calendarPreview"
+                        class="grid grid-cols-7 gap-1 text-center text-[10px] items-center text-slate-400">
+                        <div class="font-bold">S</div>
+                        <div class="font-bold">M</div>
+                        <div class="font-bold">T</div>
+                        <div class="font-bold">W</div>
+                        <div class="font-bold">T</div>
+                        <div class="font-bold">F</div>
+                        <div class="font-bold">S</div>
+                        <!-- Simple dots for days -->
+                        <div class="py-2 text-slate-800">1</div>
+                        <div class="py-2 text-slate-800">2</div>
+                        <div class="py-2 text-slate-800">3</div>
+                        <div class="py-2 text-slate-800">4</div>
+                        <div class="py-2 text-slate-800">5</div>
+                        <div class="py-2 bg-indigo-100 text-indigo-700 rounded-lg font-bold">6</div>
+                        <div class="py-2 text-slate-800">7</div>
+                        <div class="py-2 text-slate-800">8</div>
+                        <div class="py-2 text-slate-800">9</div>
+                        <div class="py-2 text-slate-800">10</div>
+                        <div class="py-2 text-slate-800">11</div>
+                        <div class="py-2 text-slate-800">12</div>
+                        <div class="py-2 text-slate-800">13</div>
+                        <div class="py-2 text-slate-800">14</div>
+                        <div class="py-2 text-slate-800">15</div>
+                        <div class="py-2 bg-rose-500 text-white rounded-lg font-bold">16</div>
+                        <div class="py-2 text-slate-800">17</div>
+                        <div class="py-2 text-slate-800">18</div>
+                        <div class="py-2 text-slate-800">19</div>
+                        <div class="py-2 text-slate-800">20</div>
+                        <div class="py-2 text-slate-800">21</div>
+                        <div class="py-2 text-slate-800">22</div>
+                        <div class="py-2 text-slate-800">23</div>
+                        <div class="py-2 text-slate-800">24</div>
+                        <div class="py-2 text-slate-800">25</div>
+                        <div class="py-2 text-slate-800">26</div>
+                        <div class="py-2 text-slate-800">27</div>
+                        <div class="py-2 text-slate-800">28</div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-2 h-2 rounded-full bg-rose-500"></div>
+                            <span class="text-sm font-bold text-slate-700">Next: Rent (₹12,000)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span class="text-sm font-bold text-slate-700">Electricity (Due in 4d)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-premium p-6">
+                    <h4 class="font-bold text-slate-800 mb-4">Savings Opportunities</h4>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <h5 class="font-bold text-sm text-slate-800 mb-1">Unused Netflix?</h5>
+                            <p class="text-xs text-slate-500">You haven't logged any "Fun" transactions lately. Consider
+                                downgrading.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <h5 class="font-bold text-sm text-slate-800 mb-1">Annual Discounts</h5>
+                            <p class="text-xs text-slate-500">Switching to annual billing for insurance saves
+                                ₹2,400/year.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bill Modal -->
+    <div id="billModal" class="modal-overlay" onclick="if(event.target==this) toggleModal('billModal')">
+        <div class="modal-container">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 class="text-xl font-bold text-slate-800">Add Recurring Bill</h3>
+                <button class="text-slate-400 hover:text-slate-600 transition-colors"
+                    onclick="toggleModal('billModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="billForm" class="p-6 space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Bill Name</label>
+                    <input type="text" id="billName" required placeholder="e.g. Netflix, Rent, Electricity"
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Amount</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
+                            <input type="number" id="billAmount" required min="0" step="1"
+                                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none"
+                                placeholder="0">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Due Date</label>
+                        <input type="date" id="billDate" required
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Frequency</label>
+                    <select id="billFrequency" required
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 transition-all outline-none appearance-none">
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="quarterly">Quarterly</option>
+                    </select>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-rose-100 transition-all active:scale-[0.98]">
+                        Save Bill
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/src/bills.js"></script>
+</body>
+
+</html>
